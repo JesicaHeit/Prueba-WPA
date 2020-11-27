@@ -1,35 +1,10 @@
-{% extends 'base.html' %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    {%block title%}
-    <title>Login</title>
-    {%endblock%}
-</head>
-{%block content%}
-<body>
- <div class="jumbotron">
-    <form action ="" method="POST">
-        {% csrf_token %}
-        <table>
-            {{ form.as_table }}
-        </table>
-    <br>
-        <p>
+<h2>Iniciar sesión</h2>
 
-        </p>
-        <p>
+<form method="POST">
+    {{ form.as_p }}
+    {% csrf_token %}
+    <button type="submit">Login</button>
+</form>
 
-        </p>
-        <button type="reset" class="btn btn-dark">Limpiar</button>
-        <a class="btn btn-dark" href="{%url 'password_reset'%}"><font face="verdana">Olvidé mi contraseña</font></a>
-        <button type="submit" class="btn btn-dark">Login</button>
-    </form>
- </div>
-<br>
-
-
-</body>
-{%endblock content%}
-</html>
+<hr />
+<a href="/register">Registrar usuario</a>
