@@ -33,50 +33,6 @@
 
   </header>
   <main class="Main">
-    {% if user.is_authenticated %}
-    <li class="nav-item active">
-    <a class="nav-link" href="{%url 'recetas'%}">Explorar <span class="sr-only">(current)</span></a>
-  </li>
-    <li class="nav-item active">
-    <a class="nav-link" href="{%url 'recetas_follow' %}">Recetas de seguidos<span class="sr-only">(current)</span></a>
-  </li>
-  <li class="nav-item active">
-    <a class="nav-link" href="{%url 'post_new'%}">Publicar Receta <span class="sr-only">(current)</span></a>
-  </li>
-    <li class="nav-item active">
-    <a class="nav-link" href="{%url 'search_vista'%}">Buscar<span class="sr-only">(current)</span></a>
-           <li class="nav-item dropdown">
-    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-      {{user.username}} </a>
-    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-        <a class="dropdown-item" href="{%url 'receta_user'%}">Mis recetas</a>
-        <a class="dropdown-item" href="{% url 'edit_profile_page' user.profile.id%}">Editar Perfil</a>
-      <a class="dropdown-item" href="{% url 'password_change' %}">Cambiar contraseña</a>
-      <a class="dropdown-item" href="{% url 'logout' %}">Cerrar sesión</a>
-      <div class="dropdown-divider"></div>
-    </div>
-  </li>
-    {%if user.is_staff %}
-        </li>
-        <li class="nav-item active">
-        <a class="nav-link" href="https://elencuentro.herokuapp.com/admin/">Panel del Administrador<span class="sr-only">(current)</span></a>
-      </li>
-    {%endif%}
-    {%else%}
-      <li class="nav-item active">
-        <a class="nav-link" href="{%url 'recetas'%}">Recetas <span class="sr-only">(current)</span></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="{%url 'post_new'%}">Publicar Receta</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="{%url 'login'%}">Iniciar Sesión</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="{%url 'register'%}">Registrarse</a>
-      </li>
-
-  {%endif%}
   </main>
   <script src="./script.js"></script>
 </body>
