@@ -13,7 +13,7 @@ from Proyecto1.forms import CustomUserForm
 
 
 def home(request): #Inicio
-    return render(request,'users/index.html',{})
+    return render(request,'users/plantilla_home.html',{})
 
 #@login_required(login_url='/accounts/login/')
 #@login_required(redirect_field_name='/recipes')

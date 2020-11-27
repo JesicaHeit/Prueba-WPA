@@ -3,10 +3,18 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-
+    <meta name="theme-color" content="#663399">
+    <meta name="MobileOptimized" content="width">
+    <meta name="HandheldFriendly" content="true">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="shortcut icon" type="image/png" href="/static/logo.png">
+    <link rel="apple-touch-icon" href="/static/logo.png">
+    <link rel="apple-touch-startup-image" href="/static/logo.png">
+    <link rel="manifest" href="./manifest.json">
     <title>Home</title>
     
-    <link rel="manifest" href="/manifest.json">
+
 </head>
 {%block content%}
 <body>
@@ -19,7 +27,7 @@
         </table>
 </form>
 
-</script>
+<script src="./script.js"></script>
 </body>
 {%endblock%}
 </html>
