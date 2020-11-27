@@ -4,7 +4,7 @@
   "description": "Bienvenid@s a El Encuentro",
   "orientation": "portrait",
   "display": "standalone",
-  "start_url": "./plantilla_home.html",
+  "start_url": "./index.html",
   "scope": "/",
   "lang": "es",
   "icons": [
