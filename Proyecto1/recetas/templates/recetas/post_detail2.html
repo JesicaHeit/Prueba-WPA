@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+        {%block title%}
+    <title>Mi Receta</title>
+    {%endblock%}
+</head>
+<body>
+{%block content%}
+<div class="jumbotron">
+    <div class="receta">
+        {% if receta.published_date %}
+            <div class="date">
+                {{ receta.published_date }}
+            </div>
+        {% endif %}
+        <h2>{{ receta.title }}</h2>
+        <p><strong><span class="badge badge-secondary">Categoría: {{receta.get_categoria_display}}</span></strong></p>
+        <p> <img src = "{{ receta.imagen.url }}" width="300" height="300"/> </p>
+        <p><strong>Ingredientes</strong></p>
+        <p>{{ receta.ingredients|safe  }}</p>
+        <p><strong>Paso a Paso</strong></p>
+        <p>{{ receta.text|safe }}</p>
+        <a class="btn btn-dark" href="{% url 'post_edit' pk=receta.pk %}">Editar receta</a>
+        <a class="btn btn-dark" href="{% url 'borrar_receta' pk=receta.pk %}"
+        onClick="return confirm('¿Seguro que quieres eliminar la receta?');">
+            Eliminar receta</a>
+    </div>
+
+    <hr>
+	<a class="btn btn-dark" href="{% url 'add_comment_to_post' pk=receta.pk %}">Agregar Comentario</a>
+	{% for comment in receta.comments.all %}
+		<div class="comment">
+            <div class="jumbotron">
+                <div class="date">{{ comment.created_date }}</div>
+                <strong>{{ comment.author }}</strong>
+                <p>{{ comment.text|linebreaks }}</p>
+            </div>
+		</div>
+	{% empty %}
+		<p>No hay comentarios </p>
+	{% endfor %}
+
+</div>
+
+
+
+{%endblock%}
+</body>
+</html>

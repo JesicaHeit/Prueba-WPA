@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {%block title%}
+    <title>Nueva Receta</title>
+    {%endblock %}
+</head>
+<body>
+
+{% block content %}
+    <div class="jumbotron">
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{form.media}}
+        {{ form.as_p }}
+
+        <button type="submit" class="save btn btn-dark">Guardar</button>
+    </form>
+    </div>
+{% endblock %}
+</body>
+</html>

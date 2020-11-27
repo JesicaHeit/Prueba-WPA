@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% load static%}
+{%block content%}
+
+{%block title%}
+<title>Recetas Publicadas</title>
+{%endblock%}
+
+
+<p><strong>Filtrar contenido por categoría</strong></p>
+<p>
+    <button type="button" id = "boton-todas" class="btn btn-light">Todo</button>
+    <button type="button" id = "boton-entradas"class="btn btn-light">Entradas</button>
+    <button type="button" id = "boton-carnes"class="btn btn-light">Carnes</button>
+    <button type="button" id = "boton-pastas"class="btn btn-light">Pastas</button>
+    <button type="button" id = "boton-veggie"class="btn btn-light">Veggie</button>
+    <button type="button" id = "boton-sandwiches"class="btn btn-light">Sandwiches</button>
+    <button type="button" id = "boton-sopas"class="btn btn-light">Sopas</button>
+    <button type="button" id = "boton-postres"class="btn btn-light">Postres</button>
+</p>
+
+<div id="resultados">
+
+<div class="album py-4 ">
+    <div class="container">
+        <div class="row">
+        {% for rec in receta %}
+        	{% if rec.state != 2 %}
+             <div class="col-md-4">
+                <div class="jumbotron">
+                <h2> <a href="{% url 'post_detail' pk=rec.pk %}">{{ rec.title }}</a></h2>
+                 <h5>
+                    {%if user.is_authenticated%}
+                        Por <a href="{% url 'show_profile_page' pk=rec.author.pk %}">{{ rec.author.profile }}</a>
+                    {%else%}
+                        Por {{ rec.author.profile }}
+                    {%endif%}
+                </h5>
+                <p>Fecha de Publicación: {{ rec.published_date }}  <strong>Likes: {{ rec.total_likes}}</strong></p>
+                    <p><strong><span class="badge badge-secondary">
+                        Categoría: {{ rec.get_categoria_display }}</span></strong></p>
+                <p> <img class="d-block w-100 h-100" src = "{{ rec.imagen.url }}"   /> </p>
+                    <p>Ingredientes: {{ rec.ingredients|safe  }} </p>
+                <br>
+                </div>
+                    </div>
+            {%endif%}
+        {% endfor %}
+                 </div>
+    </div>
+            </div>
+
+
+</div>
+
+
+<script src ="https://code.jquery.com/jquery-3.3.1.min.js" crossorigin = "anónimo"></script>
+<script src ="{% static 'recetas/js/post_list.js'%}"></script>
+
+{%endblock%}

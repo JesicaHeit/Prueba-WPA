@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h2>Buscar</h2>
+    <p>
+        <form method="get" action="/search/">
+        <table>
+            <div class="input-group md-form form-sm form-1 pl-0">
+            <div class="input-group-prepend">
+            <span class="input-group-text cyan lighten-2" id="basic-text1"><i class="fas fa-search text-white"
+                aria-hidden="true"></i></span>
+            </div>
+            <input class="form-control my-0 py-1" type="text" placeholder="Search" aria-label="Search" {{ form.q }}
+            </div>
+            <p></p>
+            <input type="submit" class="btn btn-light" value="Buscar">
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+
+        </table>
+    </p>
+
+        {% if query %}
+            <h3>Resultados</h3>
+
+            {% for result in page.object_list %}
+            <p>
+        <div>
+                <div class="jumbotron">
+
+                <p><h2>{{ result.text|safe }}</h2></p>
+                <p><h6>Por {{ result.author|safe }}</h6></p>
+                <p>Ingredientes: {{ result.ingredients|safe }}</p>
+                <p><a href="{% url 'post_detail' pk=result.pk %}">Ver receta completa</a></p>
+
+            </p>
+            {% empty %}
+                <p>No se encontraron noticias.</p>
+    </form></div>
+            {% endfor %}
+
+            {% if page.has_previous or page.has_next %}
+                <div>
+                    {% if page.has_previous %}<a href="?q={{ query }}&amp;page={{ page.previous_page_number }}">{% endif %}&laquo; Previous{% if page.has_previous %}</a>{% endif %}
+                    |
+                    {% if page.has_next %}<a href="?q={{ query }}&amp;page={{ page.next_page_number }}">{% endif %}Next &raquo;{% if page.has_next %}</a>{% endif %}
+                </div>
+            {% endif %}
+        {% endif %}
+    </form>
+        {% endblock %}

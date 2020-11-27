@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {%block title%}
+     <title>Receta</title>
+    {%endblock%}
+
+</head>
+<body>
+{%block content%}
+{% for rec in recetas %}
+    <div class="jumbotron">
+        <div class="receta">
+            {% if rec.published_date %}
+                <div class="date">
+                    {{ rec.published_date }}
+                </div>
+            {% endif %}
+            <h2>{{ rec.title }}</h2>
+     
+            <p><strong><span class="badge badge-secondary">Categoría: {{rec.get_categoria_display}}</span></strong></p>
+            <p> <img src = "{{ receta.imagen.url }}" width="300" height="300"/> </p>
+            <p> <strong>Ingredientes</strong></p>
+            <p>{{ rec.ingredients|safe }}</p>
+            <p> <strong>Paso a Paso </strong></p>
+            <p>{{ rec.text|safe }}</p>
+        </div>
+    </div>
+{% endfor %}
+
+
+{%endblock content%}
+
+</body>
+</html>

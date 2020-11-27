@@ -1,0 +1,18 @@
+
+	{% extends 'users/base.html' %}
+
+	{% block title %}
+	profiles to follow
+	{% endblock title %}
+
+	{% block content %}
+		{% for profile in profiles %}
+			<div class= "ui segment">
+				{{profile}}
+				<br>
+				<a href="{% url 'profiles:profile-detail-view' profile.pk %}">
+					<button class="ui primary button">Seguir Perfil</button>
+				</a>
+			</div>
+		{% endfor %}
+	{% endblock content %}

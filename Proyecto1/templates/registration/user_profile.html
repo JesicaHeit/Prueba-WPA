@@ -1,0 +1,95 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+{%include 'users/base.html' %}
+<!-- modal -->
+    <h1>Perfil {{page_user.user}}</h1>
+    <br/>
+<div class="card mb-3">
+    <div class="row no-gutters">
+        <div class="col md-2">
+            {% if page_user.profile_pic %}
+                <img src="{{page_user.profile_pic.url}}" class="card-img">
+            {% endif %}
+        </div>
+            <div class="col-md-10">
+            <div class="card-body">
+                <h5 class="card-title">
+                    {{page_user.user.first_name}}
+                    {{page_user.user.last_name}}
+                </h5>
+<p class="small text-muted">
+                {%if page_user.website_url%}
+                    <a href="{{page_user.website_url}}">Website</a>
+                {%endif%}
+                {%if page_user.facebook_url%}
+                    <a href="{{page_user.facebook_url}}">Facebook</a>
+                {%endif%}
+                {%if page_user.instagram_url%}
+                    <a href="{{page_user.instagram_url}}">Instagram</a>
+                {%endif%}
+                {%if page_user.twitter_url%}
+                    <a href="{{page_user.twitter_url}}">Twitter</a>
+                {%endif%}
+                {%if page_user.pinterest_url%}
+                    <a href="{{page_user.pinterest_url}}">Pinterest</a>
+                {%endif%}
+            </p>
+                {{page_user.bio}}
+                <p class="card-text"></p>
+            </div>
+        </div>
+        </div>
+    </div>
+
+        {% if user.is_authenticated %}
+                {% if follow %}
+                    <form action="{% url 'follow_unfollow_profile' %}" method="POST">
+                        {% csrf_token %}
+                        <input type="hidden" name="profile_pk" value={{object.pk}}>
+                        <button type="submit" class="ui negative button">Dejar de Seguir</button>
+                    </form> 
+                {% else %}
+                    {% if my_profile != page_user %}
+                        <form action="{% url 'follow_unfollow_profile' %}" method="POST">
+                                {% csrf_token %}
+                                <input type="hidden" name="profile_pk" value={{object.pk}}>
+                                <button type="submit" id="follow-btn" class="ui positive button">Seguir</button>
+                        </form>
+                    {% endif %}
+                {% endif %}
+        {% endif %}
+    <br>
+
+         {% for rec in receta %}
+                        <div class="jumbotron">
+                        <br>
+                        <h2>{{ rec.title|safe}}</h2>
+                        <p>{{ rec.published_date }}</p>
+                            <p> <img src = "{{ rec.imagen.url }}" width="300" height="300"/> </p>
+                        <p>{{ rec.ingredients|safe }} </p>
+                            <a href="{% url 'post_detail' pk=rec.pk %}">Ver receta completa</a>
+                        <h5>
+                        </h5>
+                        <br>
+                    </div>
+
+        {% endfor %}
+
+</div>
+
+    <br/><br/>
+
+{% block scripts %}
+<script>
+$(document).ready(function(){
+    $('#follow-btn').click(function(){
+        $('.ui.basic.modal')
+        .modal('show')
+    })
+;
+})
+
+</script>
+{% endblock scripts %}
+{%endblock content%}

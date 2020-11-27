@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {%block title%}
+     <title>Receta</title>
+    {%endblock%}
+
+</head>
+<body>
+{%block content%}
+<div class="jumbotron">
+    <div class="receta">
+        {% if receta.published_date %}
+            <div class="date">
+                {{ receta.published_date }}
+            </div>
+        {% endif %}
+        <h2>{{ receta.title }}</h2>
+        <h5>
+            {%if user.is_authenticated%}
+                Por <a href="{% url 'show_profile_page' pk=receta.author.pk %}">{{ receta.author.profile }}</a>
+            {%else%}
+                Por {{ receta.author.profile }}
+            {%endif%}
+        </h5>
+        <p><strong><span class="badge badge-secondary">Categoría: {{receta.get_categoria_display}}</span></strong></p>
+        <p> <img src = "{{ receta.imagen.url }}" width="300" height="300"/> </p>
+        <p> <strong>Ingredientes</strong></p>
+        <p>{{ receta.ingredients|safe }}</p>
+        <p> <strong>Paso a Paso </strong></p>
+        <p>{{ receta.text|safe }}</p>
+    </div>
+    <br/><br/>
+    <hr>
+    <br/>
+    <form action="{%url 'like_post' receta.pk%}" method="POST">
+        {%csrf_token%}
+        {%if user.is_authenticated%}
+            {%if liked%}
+                <button type="submit", name="receta_id", value="{{receta.id}}", class="btn btn-danger btn-sm">Unlike</button> - {{total_likes}} Likes
+            {%else%}
+                <button type="submit", name="receta_id", value="{{receta.id}}", class="btn btn-success btn-sm" >Like</button> - {{total_likes}} Likes
+            {%endif%}
+        {%else%}
+            <small>Inicie sesión para likear</small> - {{total_likes}} Likes
+        {%endif%}
+    </form>
+    <hr>
+        {%if user.is_authenticated%}
+            {%if user != receta.author %}
+                <a class="btn btn-default" href="{% url 'reports' pk=receta.pk %}"><button id="follow-btn" class="ui positive button" style="color:black; background-color:red; font-family:verdana;">Denunciar</button></a>
+            {%endif%}   
+        {%endif%}    
+    <hr>
+	<a class="btn btn-dark" href="{% url 'add_comment_to_post' pk=receta.pk %}">Agregar Comentario</a>
+    <br>
+	{% for comment in receta.comments.all %}
+    <br>
+		<div class="comment">
+            <div class="jumbotron p-3 mb-2 bg-primary text-dark">
+			<div class="date">{{ comment.created_date }}</div>
+			<strong>{{ comment.author }}</strong>
+			<p>{{ comment.text|linebreaks }}</p>
+            </div>
+		</div>
+	{% empty %}
+		<p>No hay comentarios</p>
+	{% endfor %}
+
+</div>
+{%endblock content%}
+
+</body>
+</html>

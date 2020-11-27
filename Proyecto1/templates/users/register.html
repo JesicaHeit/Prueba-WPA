@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Registro de Usuario</title>
+</head>
+<body>
+{%block content%}
+    <h2>Registro usuario</h2>
+    <form action ="" method="POST">
+        {% csrf_token %}
+        <table>
+            {{ form.as_table }}
+        </table>
+
+        <button type="submit" class="btn btn-dark">Registrar</button>
+        <button type="reset" class="btn btn-dark">Limpiar</button>
+
+    </form>
+{%endblock%}
+</body>
+</html>
+<hr />
+

@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<html>
+    <head>
+        {%block title%}
+        <title>Mis Recetas</title>
+        {%endblock%}
+    </head>
+    <h1>Mi perfil</h1>
+    <br/>
+<div class="card mb-3">
+    <div class="row no-gutters">
+        <div class="col md-2">
+            {% if page_user.profile.profile_pic %}
+                <img src="{{page_user.profile.profile_pic.url}}" class="card-img">
+            {% endif %}
+        </div>
+            <div class="col-md-10">
+            <div class="card-body">
+                <h5 class="card-title">
+                    {{page_user.first_name}}
+                    {{page_user.last_name}}
+                </h5>
+<p class="small text-muted">
+                {%if page_user.profile.website_url%}
+                    <a href="{{page_user.profile.website_url}}">Website</a>
+                {%endif%}
+                {%if page_user.profile.facebook_url%}
+                    <a href="{{page_user.profile.facebook_url}}">Facebook</a>
+                {%endif%}
+                {%if page_user.profile.instagram_url%}
+                    <a href="{{page_user.profile.instagram_url}}">Instagram</a>
+                {%endif%}
+                {%if page_user.profile.twitter_url%}
+                    <a href="{{page_user.profile.twitter_url}}">Twitter</a>
+                {%endif%}
+                {%if page_user.profile.pinterest_url%}
+                    <a href="{{page_user.profile.pinterest_url}}">Pinterest</a>
+                {%endif%}
+            </p>
+                {{page_user.profile.bio}}
+                <p class="card-text"></p>
+            </div>
+        </div>
+
+        </div>
+
+    </div>
+<br>
+ {% for rec in receta %}
+            <div>
+                <div class="jumbotron">
+               <p>
+                <h2><a href="{% url 'post_detail2' pk=rec.pk %}">{{ rec.title }}</a></h2>
+                <p>{{ rec.published_date }}</p>
+                    <p> <img src = "{{ rec.imagen.url }}" width="300" height="300"/> </p>
+                    <p><strong><span class="badge badge-secondary">
+                        Categoría: {{rec.get_categoria_display}}</span></strong></p>
+                <p>{{ rec.ingredients|safe }} </p>
+
+
+
+               </p>
+                <br>
+            </div>
+            </div>
+        {% endfor %}
+</div>
+
+    <br/><br/>
+{% endblock content%}
+</html>

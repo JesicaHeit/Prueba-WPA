@@ -1,0 +1,25 @@
+{% extends 'base_template.html' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <title>Home</title>
+    
+    <link rel="manifest" href="/manifest.json">
+</head>
+{%block content%}
+<body>
+
+<form action ="" method="POST">
+        {% csrf_token %}
+
+        <table>
+            {{ form.as_table }}
+        </table>
+</form>
+
+</script>
+</body>
+{%endblock%}
+</html>

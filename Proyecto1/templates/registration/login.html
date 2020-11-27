@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {%block title%}
+    <title>Login</title>
+    {%endblock%}
+</head>
+{%block content%}
+<body>
+ <div class="jumbotron">
+    <form action ="" method="POST">
+        {% csrf_token %}
+        <table>
+            {{ form.as_table }}
+        </table>
+    <br>
+        <p>
+
+        </p>
+        <p>
+
+        </p>
+        <button type="reset" class="btn btn-dark">Limpiar</button>
+        <a class="btn btn-dark" href="{%url 'password_reset'%}"><font face="verdana">Olvidé mi contraseña</font></a>
+        <button type="submit" class="btn btn-dark">Login</button>
+    </form>
+ </div>
+<br>
+
+
+</body>
+{%endblock content%}
+</html>

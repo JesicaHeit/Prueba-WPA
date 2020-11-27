@@ -1,0 +1,68 @@
+{% extends 'users/base.html' %}
+
+{% block title %}
+profile detail
+{% endblock title %}
+
+{% block content %}
+<!-- modal -->
+
+<div class="ui basic modal" style="top:100px; height:400px">
+  <div class="ui icon header">
+    <i class="user plus icon"></i>
+    Está seguro de seguir al usuario {{object}} ?
+  </div>
+  <div class="content">
+    <p>Al confirmar podrá interactuar con el usuario {{object}} </p>
+  </div>
+  <div class="actions">
+  	<form action="{% url 'users:follow-unfollow-view' %}"method="POST">
+  		{% csrf_token %}
+  		<input type="hidden" name="profile_pk" value={{object.pk}}>
+	    <button type="submit" class="ui green ok massive button">
+	      <i class="checkmark icon"></i>
+	      Yes
+	    </button>
+	</form>
+  </div>
+</div>
+
+<div class="ui grid">
+	<div class="row">
+		<div class="four wide column">
+			{{object}}
+		<hr>
+		{% if follow %}
+			<form action="{% url 'users:follow-unfollow-view' %}" method="POST">
+				{% csrf_token %}
+				<input type="hidden" name="profile_pk" value={{object.pk}}>
+				<button type="submit" class="ui negative button">unfollow</button>
+			</form>	
+		{% else %}
+			<button id="follow-btn" class="ui positive button">follow</button>
+		{% endif %}
+		</div>
+		<div class="twelve wide column">
+			 {% for post in object.profiles_post %}
+			 	<div class="ui segment">
+			 		{{post.body}}
+			 	</div>}
+			 {% endfor %}
+		</div>
+	</div>
+</div>
+
+{% endblock content %}
+
+{% block scripts %}
+<script>
+$(document).ready(function(){
+	$('#follow-btn').click(function(){
+		$('.ui.basic.modal')
+		.modal('show')
+	})
+;
+})
+
+</script>
+{% endblock scripts %}
