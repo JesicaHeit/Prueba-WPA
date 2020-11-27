@@ -4,8 +4,8 @@
   "description": "Bienvenid@s a El Encuentro",
   "orientation": "portrait",
   "display": "standalone",
-  "start_url": "./index.html",
-  "scope": "/",
+  "start_url": "./?utm_source=web_app_manifest",
+  "scope": "./",
   "lang": "es",
   "icons": [
     {
