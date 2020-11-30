@@ -1,4 +1,3 @@
-{%load static%}
 <!DOCTYPE html>
 <html lang="es">
 
@@ -27,15 +26,74 @@
 <body>
   <header class="Header">
     <h1>EL ENCUENTRO</h1>
+    <img src="/static/logo.png" alt="El Encuentro">
     <p>
       Bienvenid@s a EL ENCUENTRO
     </p>
-    <nav>
+    
+      <nav class="navbar navbar-expand-lg  navbar-dark text-uppercase fixed-top bg-dark " id="mainNav">
+        <a class="navbar-brand" href="https://jesicaheit.github.io/Prueba-WPA/home">El Encuentro</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="nav nav-pills justify-content-between">
+          <ul class="navbar-nav mr-auto">
+            {% if user.is_authenticated %}
+              <li class="nav-item active">
+              <a class="nav-link" href="{%url 'recetas'%}">Explorar <span class="sr-only">(current)</span></a>
+            </li>
+              <li class="nav-item active">
+              <a class="nav-link" href="{%url 'recetas_follow' %}">Recetas de seguidos<span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item active">
+              <a class="nav-link" href="{%url 'post_new'%}">Publicar Receta <span class="sr-only">(current)</span></a>
+            </li>
+              <li class="nav-item active">
+              <a class="nav-link" href="{%url 'search_vista'%}">Buscar<span class="sr-only">(current)</span></a>
+                     <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                {{user.username}} </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="{%url 'receta_user'%}">Mis recetas</a>
+                  <a class="dropdown-item" href="{% url 'edit_profile_page' user.profile.id%}">Editar Perfil</a>
+                <a class="dropdown-item" href="{% url 'password_change' %}">Cambiar contraseña</a>
+                <a class="dropdown-item" href="{% url 'logout' %}">Cerrar sesión</a>
+                <div class="dropdown-divider"></div>
+              </div>
+            </li>
+              {%if user.is_staff %}
+                  </li>
+                  <li class="nav-item active">
+                  <a class="nav-link" href="https://elencuentro.herokuapp.com/admin/">Panel del Administrador<span class="sr-only">(current)</span></a>
+                </li>
+              {%endif%}
+              {%else%}
+                <li class="nav-item active">
+                  <a class="nav-link" href="{%url 'recetas'%}">Recetas <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{%url 'post_new'%}">Publicar Receta</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{%url 'login'%}">Iniciar Sesión</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{%url 'register'%}">Registrarse</a>
+                </li>
 
-    </nav>
+            {%endif%}
+          </ul>
+            </ul>
+          <form class="form-inline my-2 my-lg-0">
+
+          </form>
+        </div>
+      </nav>
+    
   </header>
   <main class="Main">
-
+    <iframe width="560" height="315" src="{%static '/3.jpg'%}"></iframe>
   </main>
   <script src="./script.js"></script>
 </body>
